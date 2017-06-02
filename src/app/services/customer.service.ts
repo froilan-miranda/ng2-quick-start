@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/toPromise';
 
 const URL_CUSTOMER = '../../assets/data/customer.json'
 
@@ -11,6 +12,12 @@ export class CustomerService {
 	constructor(private _http: Http) {}
 
 	getCustomers() {
+		return this._http.get(URL_CUSTOMER)
+			.map((response:Response) => response.json())
+			.toPromise();
+	}
+
+	getCustomers_RxObservable() {
 		return this._http.get(URL_CUSTOMER)
 			.map((response:Response) => response.json())
 			.catch(this._handlerError);

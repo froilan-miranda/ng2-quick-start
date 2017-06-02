@@ -13,11 +13,15 @@ import { CustomerService } from '../services/customer.service';
 	providers: [CustomerService]
 })
 export class CustomersComponent implements OnInit {
-	customers:Observable<any[]>;
-
+		customers:any;
+	//customers:Promise<any[]>;
+	//	customers:Observable<any[]>;
 	constructor(private _customerService:CustomerService) {}
 
 	ngOnInit(){
-		this.customers = this._customerService.getCustomers();
+		this._customerService.getCustomers()
+			.then((customers) => this.customers = customers)
+
+		//this.customers = this._customerService.getCustomers();
 	}
 }
